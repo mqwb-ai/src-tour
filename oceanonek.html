@@ -24,32 +24,31 @@
       display: block;
     }
 
-    /* Centered Top Audio Player */
+    /* Audio Player - Top Left */
     #customAudioPlayer {
       position: absolute;
       top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 10px;
       background: rgba(0, 0, 0, 0.85);
       color: white;
       padding: 12px;
       border-radius: 10px;
       z-index: 1000;
       width: 260px;
-      text-align: center;
     }
 
     #customAudioPlayer .label {
       font-size: 16px;
       font-weight: bold;
       margin-bottom: 8px;
+      text-align: left;
     }
 
     #customAudioPlayer .controls {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     #customAudioPlayer button,
@@ -68,12 +67,11 @@
       background: #666;
     }
 
-    /* Centered Bottom Conversational AI Widget */
+    /* Conversational AI - Bottom Right */
     #aiWrapper {
       position: absolute;
       bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
+      right: 20px;
       z-index: 1000;
     }
 
@@ -106,15 +104,15 @@
     </div>
   </div>
 
-  <!-- Conversational AI Container -->
+  <!-- Conversational AI Widget -->
   <div id="aiWrapper">
     <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
   </div>
 
-  <!-- ElevenLabs Widget Script -->
+  <!-- Widget Script -->
   <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
-  <!-- Audio Controls JavaScript -->
+  <!-- Audio Controls Script -->
   <script>
     const audio = document.getElementById("audioPlayer");
 
