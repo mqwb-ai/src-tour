@@ -59,8 +59,8 @@
         background: #666;
       }
 
-      /* Conversational AI Widget - Top Aligned */
-      elevenlabs-convai {
+      /* Conversational AI Widget Wrapper */
+      #aiWidgetWrapper {
         position: fixed;
         top: 10px;
         right: 10px;
@@ -94,7 +94,9 @@
     </div>
 
     <!-- ElevenLabs Widget -->
-    <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
+    <div id="aiWidgetWrapper">
+      <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
+    </div>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
     <!-- AUDIO PLAYER JS -->
