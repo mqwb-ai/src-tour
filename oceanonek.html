@@ -58,17 +58,6 @@
       #customAudioPlayer select:hover {
         background: #666;
       }
-
-      /* Conversational AI Widget Wrapper */
-      #aiWidgetWrapper {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        z-index: 9999;
-        width: 220px;
-        height: 120px;
-        box-sizing: border-box;
-      }
     </style>
   </head>
   <body>
@@ -93,10 +82,12 @@
       </div>
     </div>
 
-    <!-- ElevenLabs Widget -->
-    <div id="aiWidgetWrapper">
-      <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
-    </div>
+    <!-- ElevenLabs Conversational AI Widget -->
+    <elevenlabs-convai 
+      agent-id="agent_01jvn5j7m7emj9mva27qc019fy" 
+      position="top-right" 
+      offset="10px">
+    </elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
     <!-- AUDIO PLAYER JS -->
