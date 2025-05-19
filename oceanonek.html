@@ -6,6 +6,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
+        font-family: sans-serif;
       }
 
       img {
@@ -17,20 +18,28 @@
       /* Audio Player Styles */
       #customAudioPlayer {
         position: fixed;
-        bottom: 10px;
+        top: 10px;
         left: 10px;
-        background: rgba(0, 0, 0, 0.75);
+        background: rgba(0, 0, 0, 0.85);
         color: white;
-        padding: 10px;
-        border-radius: 8px;
+        padding: 12px;
+        border-radius: 10px;
         z-index: 9999;
-        font-family: sans-serif;
+        width: 220px;
+      }
+
+      #customAudioPlayer .label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: center;
       }
 
       #customAudioPlayer .controls {
         display: flex;
+        flex-wrap: wrap;
         gap: 6px;
-        align-items: center;
+        justify-content: center;
       }
 
       #customAudioPlayer button,
@@ -38,14 +47,25 @@
         background: #444;
         color: white;
         border: none;
-        padding: 5px 8px;
-        border-radius: 4px;
+        padding: 8px 10px;
+        border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
       }
 
       #customAudioPlayer button:hover,
       #customAudioPlayer select:hover {
         background: #666;
+      }
+
+      /* Conversational AI Widget Positioning */
+      elevenlabs-convai {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 9999;
+        width: 220px;
+        height: 120px;
       }
     </style>
   </head>
@@ -54,6 +74,7 @@
 
     <!-- AUDIO PLAYER -->
     <div id="customAudioPlayer">
+      <div class="label">Ocean OneK Information</div>
       <audio id="audioPlayer" src="oceanonek.mp3"></audio>
       <div class="controls">
         <button onclick="playAudio()">▶</button>
@@ -103,5 +124,7 @@
         audio.playbackRate = parseFloat(speed);
       }
     </script>
+  </body>
+</html>
   </body>
 </html>
