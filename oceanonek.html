@@ -26,6 +26,7 @@
         border-radius: 10px;
         z-index: 9999;
         width: 220px;
+        box-sizing: border-box;
       }
 
       #customAudioPlayer .label {
@@ -58,7 +59,7 @@
         background: #666;
       }
 
-      /* Conversational AI Widget Positioning */
+      /* Conversational AI Widget - Top Aligned */
       elevenlabs-convai {
         position: fixed;
         top: 10px;
@@ -66,6 +67,7 @@
         z-index: 9999;
         width: 220px;
         height: 120px;
+        box-sizing: border-box;
       }
     </style>
   </head>
@@ -124,7 +126,5 @@
         audio.playbackRate = parseFloat(speed);
       }
     </script>
-  </body>
-</html>
   </body>
 </html>
