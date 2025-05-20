@@ -123,18 +123,17 @@
                 wasAudioPlaying = false;
             }
         };
-        window.elevenlabs.convai.registerClientTools(clientTools);
-        console.log('Client tools registered:', clientTools); // Check the created object
+//        window.elevenlabs.convai.registerClientTools(clientTools);
 
-        // try {
-        //     const conversation = await Conversation.startSession({
-        //         agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
-        //         clientTools: clientTools, // Ensure clientTools is passed here
-        //     });
-        //     console.log('Conversation session started:', conversation);
-        // } catch (error) {
-        //     console.error('Error starting conversation:', error);
-        // }
+        try {
+            const conversation = await Conversation.startSession({
+                agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
+                clientTools: clientTools, // Ensure clientTools is passed here
+            });
+            console.log('Conversation session started:', conversation);
+        } catch (error) {
+            console.error('Error starting conversation:', error);
+        }
     });
 
     </script>
