@@ -5,27 +5,34 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const widget = document.querySelector('elevenlabs-convai');
-  console.log('Widget Element:', widget); // Log widget element
+  console.log('Widget Element:', widget);
   
   if (widget) {
+    // Function to be called on connect
+    const onConnect = () => {
+      console.log('Connected to the widget');
+      // Add any additional functionality you need here
+    };
+
+    // Function to be called on disconnect
+    const onDisconnect = () => {
+      console.log('Disconnected from the widget');
+      // Add any cleanup or additional functionality here
+    };
+
+    // Listen for the connect event
+    widget.addEventListener('elevenlabs-convai:connect', onConnect);
+
+    // Listen for the disconnect event
+    widget.addEventListener('elevenlabs-convai:disconnect', onDisconnect);
+    
+    // Existing event listener for the call event
     widget.addEventListener('elevenlabs-convai:call', (event) => {
-      console.log('Call event triggered'); // Log when event is triggered
-      
-      // Check if event details are populated
-      console.log('Event Details:', event.detail); 
-
-      event.detail.config.clientTools = {
-        testClientTool: () => {
-          console.log('Hello World'); // Test that the client tool gets called correctly
-        },
-      };
+      console.log('Call event triggered');
+      console.log('Event Details:', event.detail);
     });
-
-    // This is for testing, will trigger the event on page load - can be removed later
-    // Uncomment the line below to test event handling
-    // widget.dispatchEvent(new CustomEvent('elevenlabs-convai:call', { detail: { config: {} } }));
   } else {
-    console.warn('Widget not found in the DOM'); // Warn if widget is not found
+    console.warn('Widget not found in the DOM');
   }
 });
 </script>
