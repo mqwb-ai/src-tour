@@ -56,7 +56,6 @@
 
   <!-- Header with custom audio player -->
   <header>
-    <h1>Audio Info</h1>
     <div class="audio-controls">
       <audio id="audioPlayer" preload="auto">
         <source src="welcome.mp3" type="audio/mpeg" />
@@ -117,7 +116,18 @@
     function setAudio(src) {
       audioPlayer.src = src;
       audioPlayer.play();
+
+      
     }
   </script>
+
+  <script>
+  window.addEventListener('load', () => {
+    const audioPlayer = document.getElementById('audioPlayer');
+    audioPlayer.play().catch(error => {
+      console.warn("Autoplay failed:", error);
+    });
+  });
+</script>
 </body>
 </html>
