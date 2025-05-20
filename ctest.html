@@ -1,21 +1,22 @@
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const widget = document.querySelector('elevenlabs-convai');
+  console.log(widget); // Check if the widget is properly selected
   if (widget) {
-    // Listen for the widget's "call" event to trigger client-side tools
     widget.addEventListener('elevenlabs-convai:call', (event) => {
+      console.log('Call event triggered'); // Check if the event listener is working
       event.detail.config.clientTools = {
-        // Note: To use this example, the client tool called "redirectToExternalURL" (case-sensitive) must have been created with the configuration defined above.
-        logMessage: async ({ message }) => {
-          console.log(message);
+        logMessage: ({ message }) => {
+          console.log(message); // This should log your desired messages
         },
       };
     });
+
+    // Manual dispatch for testing (remove/modify in production as needed)
+    // widget.dispatchEvent(new CustomEvent('elevenlabs-convai:call', { detail: { config: {} } }));
   }
 });
 </script>
-
