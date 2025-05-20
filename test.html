@@ -106,38 +106,44 @@
       let wasAudioPlaying = false;
     
       window.addEventListener('elevenlabs-convai-ready', async () => {
-        const conversation = await Conversation.startSession({
-          agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
-          clientTools: {
+        console.log('ElevenLabs widget is ready'); // Check if the event fires
+
+        const clientTools = {
             logMessage: async ({message}) => {
-              console.log(message);
+                console.log('Logging message from AI:', message);
             },
             pauseTourAudio: async () => {
-              console.log("pauseTourAudio invoked");
-              const audioPlayer = document.getElementById('audioPlayer');
-              if (!audioPlayer) return;
-    
-              // Record if it was playing
-              wasAudioPlaying = !audioPlayer.paused && !audioPlayer.ended;
-    
-              audioPlayer.pause();
+                console.log("pauseTourAudio invoked");
+                const audioPlayer = document.getElementById('audioPlayer');
+                if (!audioPlayer) return;
+
+                wasAudioPlaying = !audioPlayer.paused && !audioPlayer.ended;
+                audioPlayer.pause();
             },
             resumeTourAudio: async () => {
-              console.log("resumeTourAudio invoked");
-              const audioPlayer = document.getElementById('audioPlayer');
-              if (!audioPlayer) return;
-    
-              // Resume only if it was playing before
-              if (wasAudioPlaying) {
-                audioPlayer.play();
-              }
-    
-              // Reset flag
-              wasAudioPlaying = false;
+                console.log("resumeTourAudio invoked");
+                const audioPlayer = document.getElementById('audioPlayer');
+                if (!audioPlayer) return;
+
+                if (wasAudioPlaying) {
+                    audioPlayer.play();
+                }
+                wasAudioPlaying = false;
             }
-          },
-        });
-      });
+        };
+        console.log('Client tools registered:', clientTools); // Check the created object
+
+        try {
+            const conversation = await Conversation.startSession({
+                agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
+                clientTools: clientTools, // Ensure clientTools is passed here
+            });
+            console.log('Conversation session started:', conversation);
+        } catch (error) {
+            console.error('Error starting conversation:', error);
+        }
+    });
+
     </script>
 
   </footer>
