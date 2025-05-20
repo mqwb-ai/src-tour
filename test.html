@@ -109,6 +109,7 @@
         const conversation = await Conversation.startSession({
           clientTools: {
             pauseTourAudio: async () => {
+              console.log("pauseTourAudio invoked");
               const audioPlayer = document.getElementById('audioPlayer');
               if (!audioPlayer) return;
     
@@ -118,6 +119,7 @@
               audioPlayer.pause();
             },
             resumeTourAudio: async () => {
+              console.log("resumeTourAudio invoked");
               const audioPlayer = document.getElementById('audioPlayer');
               if (!audioPlayer) return;
     
