@@ -19,6 +19,15 @@
       text-align: center;
     }
 
+    .section-heading {
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 1.5rem; /* around 24px */
+      font-weight: 600;  /* semi-bold */
+      color: #333;       /* dark gray */
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    
     .audio-controls {
       display: flex;
       justify-content: center;
@@ -72,6 +81,7 @@
 
   <!-- Main content with 8 buttons to change audio -->
   <main>
+    <h1 class="section-heading">SRC Audio & AI Tour</h1>
     <button onclick="setAudio('welcome.mp3')">Introduction<sup><K></sup></button>
     <button onclick="setAudio('oceanonek.mp3')">Ocean One<sup>K</sup></button>
     <button onclick="setAudio('audio2.mp3')">2</button>
