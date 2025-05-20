@@ -1,0 +1,18 @@
+<elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
+<script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const interval = setInterval(() => {
+      const widget = document.querySelector('elevenlabs-convai');
+      if (widget && widget.addEventListener) {
+        clearInterval(interval);
+
+        // Register logMessage function
+        widget.addEventListener('message', function (event) {
+          console.log('Received message:', event.detail);
+        });
+      }
+    }, 100);
+  });
+</script>
