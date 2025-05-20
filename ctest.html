@@ -1,39 +1,34 @@
 <body>
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
   const widget = document.querySelector('elevenlabs-convai');
   console.log('Widget Element:', widget);
-  
+
   if (widget) {
-    // Function to be called on connect
-    const onConnect = () => {
+    // Listen for all events and log them
+    widget.addEventListener('elevenlabs-convai:connect', () => {
       console.log('Connected to the widget');
-      // Add any additional functionality you need here
-    };
+    });
 
-    // Function to be called on disconnect
-    const onDisconnect = () => {
+    widget.addEventListener('elevenlabs-convai:disconnect', () => {
       console.log('Disconnected from the widget');
-      // Add any cleanup or additional functionality here
-    };
+    });
 
-    // Listen for the connect event
-    widget.addEventListener('elevenlabs-convai:connect', onConnect);
-
-    // Listen for the disconnect event
-    widget.addEventListener('elevenlabs-convai:disconnect', onDisconnect);
-    
-    // Existing event listener for the call event
     widget.addEventListener('elevenlabs-convai:call', (event) => {
       console.log('Call event triggered');
       console.log('Event Details:', event.detail);
+    });
+
+    // For debugging purposes
+    widget.addEventListener('*', (event) => {
+      console.log('Event Fired: ', event.type);  // Log all events for debugging
     });
   } else {
     console.warn('Widget not found in the DOM');
   }
 });
 </script>
+
 </body>
