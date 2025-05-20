@@ -68,7 +68,20 @@
   </style>
 </head>
 <body>
-
+    <script>
+    const conversation = await Conversation.startSession({
+      clientTools: {
+        pauseTourAudio: async () => {
+          const audioPlayer = document.getElementById('audioPlayer');
+          audioPlayer.pause();
+        },
+          resumeTourAudio: async () => {
+          const audioPlayer = document.getElementById('audioPlayer');
+          audioPlayer.play();
+        }
+      },
+    });
+    </script>
   <!-- Header with custom audio player -->
   <header>
     <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
@@ -102,20 +115,7 @@
   <footer>
     <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-    <script>
-    const conversation = await Conversation.startSession({
-      clientTools: {
-        pauseTourAudio: async () => {
-          const audioPlayer = document.getElementById('audioPlayer');
-          audioPlayer.pause();
-        },
-          resumeTourAudio: async () => {
-          const audioPlayer = document.getElementById('audioPlayer');
-          audioPlayer.play();
-        }
-      },
-    });
-    </script>
+
   </footer>
 
   <!-- JavaScript -->
@@ -151,13 +151,5 @@
     }
   </script>
 
-  <script>
-  window.addEventListener('load', () => {
-    const audioPlayer = document.getElementById('audioPlayer');
-    audioPlayer.play().catch(error => {
-      console.warn("Autoplay failed:", error);
-    });
-  });
-</script>
 </body>
 </html>
