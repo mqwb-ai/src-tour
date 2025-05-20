@@ -68,20 +68,7 @@
   </style>
 </head>
 <body>
-    <script>
-    const conversation = await Conversation.startSession({
-      clientTools: {
-        pauseTourAudio: async () => {
-          const audioPlayer = document.getElementById('audioPlayer');
-          audioPlayer.pause();
-        },
-          resumeTourAudio: async () => {
-          const audioPlayer = document.getElementById('audioPlayer');
-          audioPlayer.play();
-        }
-      },
-    });
-    </script>
+    
   <!-- Header with custom audio player -->
   <header>
     <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
@@ -118,6 +105,25 @@
 
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const conversation = await Conversation.startSession({
+        clientTools: {
+          pauseTourAudio: async () => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.pause();
+          },
+          resumeTourAudio: async () => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.play();
+          }
+        },
+      });
+    });
+
+    // Your existing audio control functions here...
+  </script>
+
   <!-- JavaScript -->
   <script>
     const audioPlayer = document.getElementById('audioPlayer');
@@ -150,6 +156,8 @@
       
     }
   </script>
+
+  
 
 </body>
 </html>
