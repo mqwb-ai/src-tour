@@ -1,41 +1,24 @@
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
-<elevenlabs-convai
-  id="convai-widget"
-  agent-id="agent_01jvn5j7m7emj9mva27qc019fy"
-  auto-start="false">
-</elevenlabs-convai>
-<script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
 
 <script>
-  window.addEventListener('DOMContentLoaded', async () => {
-    // Wait until the global Conversation object is available
-    const waitForConversation = () =>
-      new Promise((resolve) => {
-        const check = () => {
-          if (window.Conversation && window.Conversation.startSession) {
-            resolve();
-          } else {
-            setTimeout(check, 100);
-          }
-        };
-        check();
-      });
-
-    await waitForConversation();
-
-    // Start the session manually with clientTools
-    const conversation = await Conversation.startSession({
-      agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
-      clientTools: {
+window.addEventListener('DOMContentLoaded', () => {
+  const widget = document.querySelector('elevenlabs-convai');
+  if (widget) {
+    // Listen for the widget's "call" event to trigger client-side tools
+    widget.addEventListener('elevenlabs-convai:call', (event) => {
+      event.detail.config.clientTools = {
         logMessage: async ({ message }) => {
           console.log('logMessage:', message);
         }
-      }
     });
+  }
+});
 
-    console.log("Registration complete");
-  });
+
+
 </script>
+
+
