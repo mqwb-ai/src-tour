@@ -8,14 +8,14 @@
 </elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const widget = document.getElementById('convai-widget');
 
-    const waitForWidgetReady = () =>
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    // Wait until the global Conversation object is available
+    const waitForConversation = () =>
       new Promise((resolve) => {
         const check = () => {
-          if (widget && typeof widget.start === 'function') {
+          if (window.Conversation && window.Conversation.startSession) {
             resolve();
           } else {
             setTimeout(check, 100);
@@ -24,22 +24,18 @@
         check();
       });
 
-    waitForWidgetReady().then(() => {
-      // Attach a one-time click handler
-      widget.addEventListener('click', () => {
-        if (!widget.hasStarted) {
-          // Register tools before starting the session
-          widget.clientTools = {
-            logMessage: async ({ message }) => {
-              console.log('logMessage on click:', message);
-            }
-          };
+    await waitForConversation();
 
-          widget.start();
-          widget.hasStarted = true; // flag to avoid double start
-          console.log('Client tools registered and session started on click.');
+    // Start the session manually with clientTools
+    const conversation = await Conversation.startSession({
+      agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
+      clientTools: {
+        logMessage: async ({ message }) => {
+          console.log('logMessage:', message);
         }
-      });
+      }
     });
+
+    console.log("Registration complete");
   });
 </script>
