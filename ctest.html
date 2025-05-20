@@ -113,10 +113,12 @@
       console.log('Event Details:', event.detail);
       event.detail.config.clientTools = {
         pauseTourAudio: () => {
+            console.log("Pause audio");
             const audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.pause();
         },
         resumeTourAudio: () => {
+            console.log("Resume audio");
             const audioPlayer = document.getElementById('audioPlayer');
             if (audioPlayer.paused) {
                 audioPlayer.play();
