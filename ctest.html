@@ -1,4 +1,96 @@
-<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stanford Robotics Center Audio & AI Tour</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    header {
+      background-color: #f4f4f4;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+
+    main button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    footer {
+      position: relative;
+      height: 100px;
+    }
+
+    elevenlabs-convai {
+      position: fixed ;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+    
+  <!-- Header with custom audio player -->
+  <header>
+    <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
+    <div class="audio-controls">
+      <audio id="audioPlayer" preload="auto">
+        <source src="welcome.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <button onclick="playAudio()">▶</button>
+      <button onclick="pauseAudio()">⏸</button>
+      <button onclick="stopAudio()">⏹</button>
+      <button onclick="rewindAudio()">⏪</button>
+      <button onclick="fastForwardAudio()">⏩</button>
+    </div>
+  </header>
+
+  <!-- Main content with 8 buttons to change audio -->
+  <main>
+    <button onclick="setAudio('welcome.mp3')">Introduction<sup><K></sup></button>
+    <button onclick="setAudio('oceanonek.mp3')">Ocean One<sup>K</sup></button>
+    <button onclick="setAudio('audio2.mp3')">2</button>
+    <button onclick="setAudio('audio3.mp3')">3</button>
+    <button onclick="setAudio('audio4.mp3')">4</button>
+    <button onclick="setAudio('audio5.mp3')">5</button>
+    <button onclick="setAudio('audio6.mp3')">6</button>
+    <button onclick="setAudio('audio7.mp3')">7</button>
+    <button onclick="setAudio('audio8.mp3')">8</button>
+  </main>
+
+  <!-- Footer with ElevenLabs Conversational AI Widget -->
+  <footer>
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 <script>
@@ -19,6 +111,18 @@
     widget.addEventListener('elevenlabs-convai:call', (event) => {
       console.log('Call event triggered');
       console.log('Event Details:', event.detail);
+      event.detail.config.clientTools = {
+        pauseTourAudio: () => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.pause();
+        },
+        resumeTourAudio: () => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if audioPlayer.paused {
+                audioPlayer.play();
+            }
+        }
+      }};
     });
 
     // For debugging purposes
@@ -31,4 +135,41 @@
 });
 </script>
 
+</footer>
+ <!-- JavaScript -->
+  <script>
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    function playAudio() {
+      audioPlayer.play();
+    }
+
+    function pauseAudio() {
+      audioPlayer.pause();
+    }
+
+    function stopAudio() {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+    }
+
+    function rewindAudio() {
+      audioPlayer.currentTime = Math.max(audioPlayer.currentTime - 5, 0);
+    }
+
+    function fastForwardAudio() {
+      audioPlayer.currentTime = Math.min(audioPlayer.currentTime + 5, audioPlayer.duration);
+    }
+
+    function setAudio(src) {
+      audioPlayer.src = src;
+      audioPlayer.play();
+
+      
+    }
+  </script>
+
+  
+
 </body>
+</html>
