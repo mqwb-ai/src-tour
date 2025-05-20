@@ -1,22 +1,32 @@
+<body>
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const widget = document.querySelector('elevenlabs-convai');
-  console.log(widget); // Check if the widget is properly selected
+  console.log('Widget Element:', widget); // Log widget element
+  
   if (widget) {
     widget.addEventListener('elevenlabs-convai:call', (event) => {
-      console.log('Call event triggered'); // Check if the event listener is working
+      console.log('Call event triggered'); // Log when event is triggered
+      
+      // Check if event details are populated
+      console.log('Event Details:', event.detail); 
+
       event.detail.config.clientTools = {
         logMessage: ({ message }) => {
-          console.log(message); // This should log your desired messages
+          console.log('Log Message:', message); // Log the actual message
         },
       };
     });
 
-    // Manual dispatch for testing (remove/modify in production as needed)
+    // This is for testing, will trigger the event on page load - can be removed later
+    // Uncomment the line below to test event handling
     // widget.dispatchEvent(new CustomEvent('elevenlabs-convai:call', { detail: { config: {} } }));
+  } else {
+    console.warn('Widget not found in the DOM'); // Warn if widget is not found
   }
 });
 </script>
+</body>
