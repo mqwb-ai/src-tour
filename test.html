@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SRC Tour</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    header {
+      background-color: #f4f4f4;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+
+    main button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    footer {
+      position: relative;
+      height: 100px;
+    }
+
+    elevenlabs-convai {
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 1000 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with custom audio player -->
+  <header>
+    <h1>SRC Tour Stop Audio</h1>
+    <div class="audio-controls">
+      <audio id="audioPlayer" preload="auto">
+        <source src="welcome.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <button onclick="playAudio()">Play</button>
+      <button onclick="pauseAudio()">Pause</button>
+      <button onclick="stopAudio()">Stop</button>
+      <button onclick="rewindAudio()">Rewind</button>
+      <button onclick="fastForwardAudio()">Fast Forward</button>
+    </div>
+  </header>
+
+  <!-- Main content with 8 buttons to change audio -->
+  <main>
+    <h2>Select a tour stop to learn more about it</h2>
+    <button onclick="setAudio('audio1.mp3')">1</button>
+    <button onclick="setAudio('audio2.mp3')">2</button>
+    <button onclick="setAudio('audio3.mp3')">3</button>
+    <button onclick="setAudio('audio4.mp3')">4</button>
+    <button onclick="setAudio('audio5.mp3')">5</button>
+    <button onclick="setAudio('audio6.mp3')">6</button>
+    <button onclick="setAudio('audio7.mp3')">7</button>
+    <button onclick="setAudio('audio8.mp3')">8</button>
+  </main>
+
+  <!-- Footer with ElevenLabs Conversational AI Widget -->
+  <footer>
+    <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    function playAudio() {
+      audioPlayer.play();
+    }
+
+    function pauseAudio() {
+      audioPlayer.pause();
+    }
+
+    function stopAudio() {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+    }
+
+    function rewindAudio() {
+      audioPlayer.currentTime = Math.max(audioPlayer.currentTime - 5, 0);
+    }
+
+    function fastForwardAudio() {
+      audioPlayer.currentTime = Math.min(audioPlayer.currentTime + 5, audioPlayer.duration);
+    }
+
+    function setAudio(src) {
+      audioPlayer.src = src;
+      audioPlayer.play();
+    }
+  </script>
+</body>
+</html>
