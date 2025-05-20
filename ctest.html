@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     widget.addEventListener('elevenlabs-convai:call', (event) => {
       event.detail.config.clientTools = {
         // Note: To use this example, the client tool called "redirectToExternalURL" (case-sensitive) must have been created with the configuration defined above.
-        logMessage: ({ message }) => {
+        logMessage: async ({ message }) => {
           console.log(message);
         },
       };
