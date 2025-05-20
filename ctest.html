@@ -2,17 +2,32 @@
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
 <script>
-  window.addEventListener('DOMContentLoaded', function () {
-    const interval = setInterval(() => {
-      const widget = document.querySelector('elevenlabs-convai');
-      if (widget && widget.addEventListener) {
-        clearInterval(interval);
+  // Wait for the widget script to be ready
+  window.addEventListener('DOMContentLoaded', async () => {
+    // Wait until the global Conversation object is available
+    const waitForConversation = () =>
+      new Promise((resolve) => {
+        const check = () => {
+          if (window.Conversation && window.Conversation.startSession) {
+            resolve();
+          } else {
+            setTimeout(check, 100);
+          }
+        };
+        check();
+      });
 
-        // Register logMessage function
-        widget.addEventListener('message', function (event) {
-          console.log('Received message:', event.detail);
-        });
+    await waitForConversation();
+
+    // Start the session with your client tool
+    const conversation = await Conversation.startSession({
+      agentId: 'agent_01jvn5j7m7emj9mva27qc019fy',
+      clientTools: {
+        logMessage: async ({ message }) => {
+          console.log('logMessage:', message);
+        }
       }
-    }, 100);
+    });
+    console.log("Registration complete")
   });
 </script>
