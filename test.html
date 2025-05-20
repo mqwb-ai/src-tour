@@ -102,26 +102,41 @@
   <footer>
     <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+    <script>
+      let wasAudioPlaying = false;
+    
+      window.addEventListener('elevenlabs-convai-ready', async () => {
+        const conversation = await Conversation.startSession({
+          clientTools: {
+            pauseTourAudio: async () => {
+              const audioPlayer = document.getElementById('audioPlayer');
+              if (!audioPlayer) return;
+    
+              // Record if it was playing
+              wasAudioPlaying = !audioPlayer.paused && !audioPlayer.ended;
+    
+              audioPlayer.pause();
+            },
+            resumeTourAudio: async () => {
+              const audioPlayer = document.getElementById('audioPlayer');
+              if (!audioPlayer) return;
+    
+              // Resume only if it was playing before
+              if (wasAudioPlaying) {
+                audioPlayer.play();
+              }
+    
+              // Reset flag
+              wasAudioPlaying = false;
+            }
+          },
+        });
+      });
+    </script>
 
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const conversation = await Conversation.startSession({
-        clientTools: {
-          pauseTourAudio: async () => {
-            const audioPlayer = document.getElementById('audioPlayer');
-            audioPlayer.pause();
-          },
-          resumeTourAudio: async () => {
-            const audioPlayer = document.getElementById('audioPlayer');
-            audioPlayer.play();
-          }
-        },
-      });
-    });
 
-  </script>
 
   <!-- JavaScript -->
   <script>
