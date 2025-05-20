@@ -107,7 +107,11 @@
     
       window.addEventListener('elevenlabs-convai-ready', async () => {
         const conversation = await Conversation.startSession({
+          
           clientTools: {
+            logMessage: async ({message}) => {
+              console.log(message);
+            },
             pauseTourAudio: async () => {
               console.log("pauseTourAudio invoked");
               const audioPlayer = document.getElementById('audioPlayer');
