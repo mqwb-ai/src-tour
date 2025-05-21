@@ -94,37 +94,38 @@
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
+<script>
+function attachClickListenerToShadowButton() {
+  console.log('[DEBUG] Trying to attach listener...');
+  const host = document.querySelector('elevenlabs-convai');
+  if (!host) return console.warn('[DEBUG] Shadow host not found');
 
-  <script>
-    // The observer code goes here
-    function attachClickListenerToShadowButton() {
-      const host = document.querySelector('elevenlabs-convai');
-      if (!host) return;
+  const shadow = host.shadowRoot;
+  if (!shadow) return console.warn('[DEBUG] Shadow root not found');
 
-      const shadow = host.shadowRoot;
-      if (!shadow) return;
+  const button = shadow.querySelector('button[title="Ask me a question"]');
+  if (!button) return console.warn('[DEBUG] Button not found inside shadow DOM');
 
-      const button = shadow.querySelector('button[title="Ask me a question"]');
-      if (!button) return;
+  button.addEventListener('click', () => {
+    console.log('[DEBUG] Shadow button clicked!');
+  });
 
-      button.addEventListener('click', () => {
-        console.log('Shadow button clicked!');
-      });
+  console.log('[DEBUG] Listener attached to shadow button.');
+}
 
-      console.log('Listener attached to shadow button.');
-    }
+const observer = new MutationObserver((mutations, obs) => {
+  const host = document.querySelector('elevenlabs-convai');
+  if (host && host.shadowRoot) {
+    console.log('[DEBUG] Shadow host and root found — attempting listener');
+    attachClickListenerToShadowButton();
+    obs.disconnect();
+  } else {
+    console.log('[DEBUG] Waiting for shadow host and root...');
+  }
+});
 
-    const observer = new MutationObserver((mutations, obs) => {
-      const host = document.querySelector('elevenlabs-convai');
-      if (host && host.shadowRoot) {
-        attachClickListenerToShadowButton();
-        obs.disconnect();
-      }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-  </script>
-
+observer.observe(document.body, { childList: true, subtree: true });
+</script>
 
 </footer>
  <!-- JavaScript -->
