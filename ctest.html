@@ -95,37 +95,44 @@
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
 <script>
-function attachClickListenerToShadowButton() {
-  console.log('[DEBUG] Trying to attach listener...');
+const pollInterval = 500; // ms
+const maxAttempts = 40; // Stop after ~20 seconds
+let attempts = 0;
+
+const pollForButton = setInterval(() => {
   const host = document.querySelector('elevenlabs-convai');
-  if (!host) return console.warn('[DEBUG] Shadow host not found');
+
+  if (!host) {
+    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
+    attempts++;
+    if (attempts >= maxAttempts) clearInterval(pollForButton);
+    return;
+  }
 
   const shadow = host.shadowRoot;
-  if (!shadow) return console.warn('[DEBUG] Shadow root not found');
+  if (!shadow) {
+    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found`);
+    attempts++;
+    if (attempts >= maxAttempts) clearInterval(pollForButton);
+    return;
+  }
 
   const button = shadow.querySelector('button[title="Ask me a question"]');
-  if (!button) return console.warn('[DEBUG] Button not found inside shadow DOM');
+  if (!button) {
+    console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
+    attempts++;
+    if (attempts >= maxAttempts) clearInterval(pollForButton);
+    return;
+  }
 
+  // ✅ Button found – attach listener
   button.addEventListener('click', () => {
-    console.log('[DEBUG] Shadow button clicked!');
+    console.log('✅ Shadow button clicked!');
   });
 
-  console.log('[DEBUG] Listener attached to shadow button.');
-}
-
-const observer = new MutationObserver((mutations, obs) => {
-  const host = document.querySelector('elevenlabs-convai');
-  if (host && host.shadowRoot) {
-    console.log('[DEBUG] Shadow host and root found — attempting listener');
-    attachClickListenerToShadowButton();
-    obs.disconnect();
-  } else {
-    console.log('[DEBUG] Waiting for shadow host and root...');
-  }
-});
-
-observer.observe(document.body, { childList: true, subtree: true });
-</script>
+  console.log('✅ Listener attached to shadow button.');
+  clearInterval(pollForButton);
+}, pollInterval);
 
 </footer>
  <!-- JavaScript -->
