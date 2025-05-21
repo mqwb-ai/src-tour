@@ -128,6 +128,8 @@ const pollForButton = setInterval(() => {
   // ✅ Button found – attach listener
   button.addEventListener('click', () => {
     console.log('✅ Shadow button clicked!');
+    const audioPlayer = document.getElementById('audioPlayer');
+    audioPlayer.pause();
   });
 
   console.log('✅ Listener attached to shadow button.');
