@@ -101,21 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to pause your audio
     function pauseMyAudio() {
       console.log('Pausing audio because the "Ask me a question" button was clicked in the Eleven Labs widget.');
-      const audioElement = document.getElementById('your-audio-element-id'); // Replace with the actual ID of your audio element
+      const audioElement = document.getElementById('audioPlayer'); 
       if (audioElement) {
         audioElement.pause();
       }
     }
 
-    // Try to find the "Ask me a question" button and listen for a click
-    const startButton = widget.shadowRoot ? widget.shadowRoot.querySelector('button:contains("Ask me a question")') : Array.from(widget.querySelectorAll('button')).find(button => button.textContent.trim() === "Ask me a question");
+    // Target the "Ask me a question" button using its text content within the Shadow DOM
+    const startButton = widget.shadowRoot ? widget.shadowRoot.querySelector('button._btn_1f9vw_132') : null;
 
-    if (startButton) {
+    if (startButton && startButton.textContent.trim() === "Ask me a question") {
       startButton.addEventListener('click', pauseMyAudio);
     } else {
-      console.warn('Could not find the "Ask me a question" button in the Eleven Labs widget.');
-      // As a fallback, you might want to check for other potential start interaction elements
-      // or log more information about the widget's button structure.
+      console.warn('Could not find the "Ask me a question" button using the specific class in the Eleven Labs widget.');
+      // Fallback in case the class changes or Shadow DOM isn't accessible directly
+      const fallbackButton = Array.from(widget.querySelectorAll('button')).find(button => button.textContent.trim() === "Ask me a question");
+      if (fallbackButton) {
+        fallbackButton.addEventListener('click', pauseMyAudio);
+      } else {
+        console.warn('Could not find the "Ask me a question" button using fallback text search either.');
+      }
     }
   } else {
     console.error('Eleven Labs widget element not found.');
