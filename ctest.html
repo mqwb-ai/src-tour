@@ -95,52 +95,70 @@
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 <script>
       document.addEventListener('DOMContentLoaded', () => {
-      const widget = document.querySelector('elevenlabs-convai');
+      //const widget = document.querySelector('elevenlabs-convai');
 
-      if (widget) {
-        console.log(widget)
-        function pauseMyAudio() {
-          console.log('Pausing audio because the "Ask me a question" button was clicked in the Eleven Labs widget.');
-          const audioElement = document.getElementById('audioPlayer');
-          if (audioElement) {
-            audioElement.pause();
-          }
-        }
-
-        function findAskMeButton(root) {
-          if (!root) return null;
-
-          const directButton = root.querySelector('button._btn_1f9vw_132');
-          if (directButton && directButton.textContent.trim() === "Ask me a question") {
-            console.log('Found button using direct class selector in root:', root);
-            return directButton;
-          }
-
-          const fallbackButton = Array.from(root.querySelectorAll('button')).find(button => button.textContent.trim() === "Ask me a question");
-          if (fallbackButton) {
-            console.log('Found button using fallback text search in root:', root);
-            return fallbackButton;
-          }
-
-          return null;
-        }
-
-        let askMeButton = findAskMeButton(widget);
-        if (!askMeButton && widget.shadowRoot) {
-          askMeButton = findAskMeButton(widget.shadowRoot);
-        }
-
-        if (askMeButton) {
-          askMeButton.addEventListener('click', pauseMyAudio);
-          console.log('Successfully attached click listener to the "Ask me a question" button.');
-        } else {
-          console.warn('Could not find the "Ask me a question" button after DOMContentLoaded.');
-          // If it's still not found, the selector or timing might still be an issue.
-          // You might need to investigate further using the browser's element inspector.
-        }
+       // Step 1: Locate the host element that has the shadow root
+      const shadowHost = document.querySelector('elevenlabs-convai'); // Change this to your shadow host
+      
+      // Step 2: Access the shadow root
+      const shadowRoot = shadowHost.shadowRoot;
+      
+      // Step 3: Find the button by its title attribute
+      const button = shadowRoot.querySelector('button[title="Ask me a question"]');
+      
+      // Step 4: Add a click event listener to the button
+      if (button) {
+        button.addEventListener('click', () => {
+          console.log('Button with title clicked!');
+        });
       } else {
-        console.error('Eleven Labs widget element not found.');
-      }
+        console.warn('Button not found');
+} 
+
+      // if (widget) {
+      //   console.log(widget)
+      //   function pauseMyAudio() {
+      //     console.log('Pausing audio because the "Ask me a question" button was clicked in the Eleven Labs widget.');
+      //     const audioElement = document.getElementById('audioPlayer');
+      //     if (audioElement) {
+      //       audioElement.pause();
+      //     }
+      //   }
+
+      //   function findAskMeButton(root) {
+      //     if (!root) return null;
+
+      //     const directButton = root.querySelector('button._btn_1f9vw_132');
+      //     if (directButton && directButton.textContent.trim() === "Ask me a question") {
+      //       console.log('Found button using direct class selector in root:', root);
+      //       return directButton;
+      //     }
+
+      //     const fallbackButton = Array.from(root.querySelectorAll('button')).find(button => button.textContent.trim() === "Ask me a question");
+      //     if (fallbackButton) {
+      //       console.log('Found button using fallback text search in root:', root);
+      //       return fallbackButton;
+      //     }
+
+      //     return null;
+      //   }
+
+      //   let askMeButton = findAskMeButton(widget);
+      //   if (!askMeButton && widget.shadowRoot) {
+      //     askMeButton = findAskMeButton(widget.shadowRoot);
+      //   }
+
+      //   if (askMeButton) {
+      //     askMeButton.addEventListener('click', pauseMyAudio);
+      //     console.log('Successfully attached click listener to the "Ask me a question" button.');
+      //   } else {
+      //     console.warn('Could not find the "Ask me a question" button after DOMContentLoaded.');
+      //     // If it's still not found, the selector or timing might still be an issue.
+      //     // You might need to investigate further using the browser's element inspector.
+      //   }
+      // } else {
+      //   console.error('Eleven Labs widget element not found.');
+      // }
     });
   </script>
 </script>
