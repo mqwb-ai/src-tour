@@ -94,45 +94,30 @@
 <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
 <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const widget = document.querySelector('elevenlabs-convai');
-  console.log('Widget Element:', widget);
 
   if (widget) {
-    // Listen for all events and log them
-    widget.addEventListener('elevenlabs-convai:connect', () => {
-      console.log('Connected to the widget');
-    });
+    // Function to pause your audio
+    function pauseMyAudio() {
+      console.log('Pausing audio because the "Ask me a question" button was clicked in the Eleven Labs widget.');
+      const audioElement = document.getElementById('audioPlayer'); 
+        audioElement.pause();
+      }
+    }
 
-    widget.addEventListener('elevenlabs-convai:disconnect', () => {
-      console.log('Disconnected from the widget');
-    });
+    // Try to find the "Ask me a question" button and listen for a click
+    const startButton = widget.shadowRoot ? widget.shadowRoot.querySelector('button:contains("Ask me a question")') : Array.from(widget.querySelectorAll('button')).find(button => button.textContent.trim() === "Ask me a question");
 
-    widget.addEventListener('elevenlabs-convai:call', (event) => {
-      console.log('Call event triggered');
-      console.log('Event Details:', event.detail);
-      event.detail.config.clientTools = {
-        pauseTourAudio: () => {
-            console.log("Pause audio");
-            const audioPlayer = document.getElementById('audioPlayer');
-            audioPlayer.pause();
-        },
-        resumeTourAudio: () => {
-            console.log("Resume audio");
-            const audioPlayer = document.getElementById('audioPlayer');
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-            }
-        }
-      };
-    });
-
-    // For debugging purposes
-    widget.addEventListener('*', (event) => {
-      console.log('Event Fired: ', event.type);  // Log all events for debugging
-    });
+    if (startButton) {
+      startButton.addEventListener('click', pauseMyAudio);
+    } else {
+      console.warn('Could not find the "Ask me a question" button in the Eleven Labs widget.');
+      // As a fallback, you might want to check for other potential start interaction elements
+      // or log more information about the widget's button structure.
+    }
   } else {
-    console.warn('Widget not found in the DOM');
+    console.error('Eleven Labs widget element not found.');
   }
 });
 </script>
