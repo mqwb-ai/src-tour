@@ -101,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to pause your audio
     function pauseMyAudio() {
       console.log('Pausing audio because the "Ask me a question" button was clicked in the Eleven Labs widget.');
-      const audioElement = document.getElementById('audioPlayer'); 
+      const audioElement = document.getElementById('your-audio-element-id'); // Replace with the actual ID of your audio element
+      if (audioElement) {
         audioElement.pause();
       }
     }
