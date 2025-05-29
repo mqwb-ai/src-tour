@@ -34,6 +34,12 @@
       flex-wrap: wrap;
     }
 
+    #audioPlayer,
+    #progressBar {
+      width: 300px;
+      max-width: 90%;
+    }
+
     main {
       padding: 30px;
       text-align: center;
@@ -68,11 +74,12 @@
         <source src="welcome.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
+      <input type="range" id="progressBar" value="0" min="0" step="1">
       <button onclick="playAudio()">▶</button>
       <button onclick="pauseAudio()">⏸</button>
       <button onclick="stopAudio()">⏹</button>
-      <button onclick="rewindAudio()">⏪</button>
-      <button onclick="fastForwardAudio()">⏩</button>
+      //<button onclick="rewindAudio()">⏪</button>
+      //<button onclick="fastForwardAudio()">⏩</button>
     </div>
   </header>
 
@@ -166,12 +173,35 @@ const pollForButton = setInterval(() => {
     function setAudio(src) {
       audioPlayer.src = src;
       audioPlayer.play();
-
       
     }
   </script>
 
-  
+  <script>
+  const progressBar = document.getElementById('progressBar');
+
+  // Update progress bar as audio plays
+  audioPlayer.addEventListener('timeupdate', () => {
+    progressBar.max = Math.floor(audioPlayer.duration);
+    progressBar.value = Math.floor(audioPlayer.currentTime);
+  });
+
+  // Seek to position when user interacts with progress bar
+  progressBar.addEventListener('input', () => {
+    audioPlayer.currentTime = progressBar.value;
+  });
+
+  // Reset progress bar when new audio is loaded
+  audioPlayer.addEventListener('loadedmetadata', () => {
+    progressBar.max = Math.floor(audioPlayer.duration);
+    progressBar.value = 0;
+  });
+
+  // Reset progress bar when audio ends
+  audioPlayer.addEventListener('ended', () => {
+    progressBar.value = 0;
+  });
+</script>
 
 </body>
 </html>
