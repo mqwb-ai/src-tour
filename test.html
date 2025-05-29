@@ -160,6 +160,8 @@ const pollForButton = setInterval(() => {
  <!-- JavaScript -->
   <script>
     const audioPlayer = document.getElementById('audioPlayer');
+    const progressBar = document.getElementById('progressBar');
+    const currentTrackLabel = document.getElementById('currentTrackLabel');
 
     function playAudio() {
       audioPlayer.play();
@@ -173,43 +175,25 @@ const pollForButton = setInterval(() => {
       audioPlayer.pause();
       audioPlayer.currentTime = 0;
     }
-
-    function rewindAudio() {
-      audioPlayer.currentTime = Math.max(audioPlayer.currentTime - 5, 0);
-    }
-
-    function fastForwardAudio() {
-      audioPlayer.currentTime = Math.min(audioPlayer.currentTime + 5, audioPlayer.duration);
-    }
-
-    function setAudio(src) {
+  
+    // Update progress bar
+    audioPlayer.addEventListener('timeupdate', () => {
+      progressBar.max = Math.floor(audioPlayer.duration);
+      progressBar.value = Math.floor(audioPlayer.currentTime);
+    });
+    
+    // Seek on progress bar input
+    progressBar.addEventListener('input', () => {
+      audioPlayer.currentTime = progressBar.value;
+    });
+    
+    // Update track label
+    function setAudio(src, label = '') {
       audioPlayer.src = src;
       audioPlayer.play();
-      
+      currentTrackLabel.textContent = `${label}`;
     }
-  </script>
-
-  <script>
-  const progressBar = document.getElementById('progressBar');
-  const currentTrackLabel = document.getElementById('currentTrackLabel');
-  
-  // Update progress bar
-  audioPlayer.addEventListener('timeupdate', () => {
-    progressBar.max = Math.floor(audioPlayer.duration);
-    progressBar.value = Math.floor(audioPlayer.currentTime);
-  });
-  
-  // Seek on progress bar input
-  progressBar.addEventListener('input', () => {
-    audioPlayer.currentTime = progressBar.value;
-  });
-  
-  // Update track label
-  function setAudio(src, label = '') {
-    audioPlayer.src = src;
-    audioPlayer.play();
-    currentTrackLabel.textContent = `${label}`;
-  }
+    
   </script>
 </body>
 </html>
