@@ -77,19 +77,19 @@
   <!-- Header with custom audio player -->
   <header>
     <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
-<div class="audio-controls">
-  <audio id="audioPlayer" preload="auto">
-    <source src="welcome.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <div class="button-group">
-    <button onclick="playAudio()">▶</button>
-    <button onclick="pauseAudio()">⏸</button>
-    <button onclick="stopAudio()">⏹</button>
-  </div>
-  <input type="range" id="progressBar" value="0" min="0" step="1">
-  <div id="currentTrackLabel">Now playing: Introduction</div>
-</div>
+    <div class="audio-controls">
+      <audio id="audioPlayer" preload="auto">
+        <source src="welcome.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <div class="button-group">
+        <button onclick="playAudio()">▶</button>
+        <button onclick="pauseAudio()">⏸</button>
+        <button onclick="stopAudio()">⏹</button>
+      </div>
+      <input type="range" id="progressBar" value="0" min="0" step="1">
+      <div id="currentTrackLabel">Introduction</div>
+    </div>
   </header>
 
   <!-- Main content with 8 buttons to change audio -->
@@ -186,32 +186,27 @@ const pollForButton = setInterval(() => {
     }
   </script>
 
-<script></script>
-const progressBar = document.getElementById('progressBar');
-const currentTrackLabel = document.getElementById('currentTrackLabel');
-
-// Update progress bar
-audioPlayer.addEventListener('timeupdate', () => {
-  progressBar.max = Math.floor(audioPlayer.duration);
-  progressBar.value = Math.floor(audioPlayer.currentTime);
-});
-
-// Seek on progress bar input
-progressBar.addEventListener('input', () => {
-  audioPlayer.currentTime = progressBar.value;
-});
-
-// Update track label
-function setAudio(src, label = '') {
-  audioPlayer.src = src;
-  audioPlayer.play();
-  currentTrackLabel.textContent = `Now playing: ${label}`;
-}
-</script>
-</body>
-</html>
-
+  <script>
+  const progressBar = document.getElementById('progressBar');
+  const currentTrackLabel = document.getElementById('currentTrackLabel');
   
-
+  // Update progress bar
+  audioPlayer.addEventListener('timeupdate', () => {
+    progressBar.max = Math.floor(audioPlayer.duration);
+    progressBar.value = Math.floor(audioPlayer.currentTime);
+  });
+  
+  // Seek on progress bar input
+  progressBar.addEventListener('input', () => {
+    audioPlayer.currentTime = progressBar.value;
+  });
+  
+  // Update track label
+  function setAudio(src, label = '') {
+    audioPlayer.src = src;
+    audioPlayer.play();
+    currentTrackLabel.textContent = `Now playing: ${label}`;
+  }
+  </script>
 </body>
 </html>
