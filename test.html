@@ -40,7 +40,7 @@
 }
 
 #progressBar {
-  width: 100px; /* Adjust this to match your button width */
+  width: 100px; 
 }
 
 #currentTrackLabel {
@@ -97,15 +97,18 @@
 
   <!-- Main content with 8 buttons to change audio -->
   <main>
-    <button onclick="setAudio('welcome.mp3', 'Introduction')">Introduction<sup><K></sup></button>
-    <button onclick="setAudio('oceanonek.mp3', 'Ocean One<sup>K</sup>')">Ocean One<sup>K</sup></button>
-    <button onclick="setAudio('dancestudio.mp3', 'Dance Studio')">Dance Studio</button>
-    <button onclick="setAudio('domesticsuite.mp3', 'Domestic Suite')">Domestic Suite</button>
-    <button onclick="setAudio('kitchen.mp3', 'Kitchen')">Kitchen</button>
-    <button onclick="setAudio('medicalbay.mp3', 'Medical Bay')">Medical Bay</button>
-    <button onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay')">Field and Construction Bay</button>
-    <button onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay')">Logistics and Manufacturing Bay</button>
-    <button onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device')">Interactive Haptic Device</button>
+
+    <div class="audio-links">
+  <a href="#" onclick="setAudio('welcome.mp3', 'Introduction'); return false;">Introduction</a> |
+  <a href="#" onclick="setAudio('oceanonek.mp3', 'Ocean One<sup>K</sup>'); return false;">Ocean One<sup>K</sup></a> |
+  <a href="#" onclick="setAudio('dancestudio.mp3', 'Dance Studio'); return false;">Dance Studio</a>
+        <a href="#" onclick="setAudio('dancestudio.mp3', 'Domestic Suite'); return false;">Domestic Suite</a>
+        <a href="#" onclick="setAudio('kitchen.mp3', 'Kitchen'); return false;">Kitchen</a>
+        <a href="#" onclick="setAudio('medicalbay.mp3', 'Medical Bay'); return false;">Medical Bay</a>
+        <a href="#" onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay'); return false;">Field and Construction Bay</a>
+        <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a>
+        <a href="#" onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device'); return false;">Interactive Haptic Device</a>
+</div>
   </main>
 
   <!-- Footer with ElevenLabs Conversational AI Widget -->
