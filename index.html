@@ -26,13 +26,29 @@
     }
 
     
-    .audio-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+.audio-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#progressBar {
+  width: 100px; /* Adjust this to match your button width */
+}
+
+#currentTrackLabel {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 16px; /* add space below the label */
+}
+
 
     main {
       padding: 30px;
@@ -63,30 +79,33 @@
   <!-- Header with custom audio player -->
   <header>
     <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
+    <div id="currentTrackLabel">Introduction</div>
     <div class="audio-controls">
       <audio id="audioPlayer" preload="auto">
         <source src="welcome.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
-      <button onclick="playAudio()">▶</button>
-      <button onclick="pauseAudio()">⏸</button>
-      <button onclick="stopAudio()">⏹</button>
-      <button onclick="rewindAudio()">⏪</button>
-      <button onclick="fastForwardAudio()">⏩</button>
+      <div class="button-group">
+        <button onclick="playAudio()">▶</button>
+        <button onclick="pauseAudio()">⏸</button>
+        <button onclick="stopAudio()">⏹</button>
+      </div>
+      <input type="range" id="progressBar" value="0" min="0" step="1">
+
     </div>
   </header>
 
   <!-- Main content with 8 buttons to change audio -->
   <main>
-    <button onclick="setAudio('welcome.mp3')">Introduction<sup><K></sup></button>
-    <button onclick="setAudio('oceanonek.mp3')">Ocean One<sup>K</sup></button>
-    <button onclick="setAudio('dancestudio.mp3')">Dance Studio</button>
-    <button onclick="setAudio('domesticsuite.mp3')">Domestic Suite</button>
-    <button onclick="setAudio('kitchen.mp3')">Kitchen</button>
-    <button onclick="setAudio('medicalbay.mp3')">Medical Bay</button>
-    <button onclick="setAudio('fieldrobotics.mp3')">Field and Construction Bay</button>
-    <button onclick="setAudio('logisticsmanufacturing.mp3')">Logistics and Manufacturing Bay</button>
-    <button onclick="setAudio('interactivehapticdevice.mp3')">Interactive Haptic Device</button>
+    <button onclick="setAudio('welcome.mp3', 'Introduction')">Introduction<sup><K></sup></button>
+    <button onclick="setAudio('oceanonek.mp3', 'Ocean One<sup>K</sup>')">Ocean One<sup>K</sup></button>
+    <button onclick="setAudio('dancestudio.mp3', 'Dance Studio')">Dance Studio</button>
+    <button onclick="setAudio('domesticsuite.mp3', 'Domestic Suite')">Domestic Suite</button>
+    <button onclick="setAudio('kitchen.mp3', 'Kitchen')">Kitchen</button>
+    <button onclick="setAudio('medicalbay.mp3', 'Medical Bay')">Medical Bay</button>
+    <button onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay')">Field and Construction Bay</button>
+    <button onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay')">Logistics and Manufacturing Bay</button>
+    <button onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device')">Interactive Haptic Device</button>
   </main>
 
   <!-- Footer with ElevenLabs Conversational AI Widget -->
@@ -141,6 +160,8 @@ const pollForButton = setInterval(() => {
  <!-- JavaScript -->
   <script>
     const audioPlayer = document.getElementById('audioPlayer');
+    const progressBar = document.getElementById('progressBar');
+    const currentTrackLabel = document.getElementById('currentTrackLabel');
 
     function playAudio() {
       audioPlayer.play();
@@ -154,24 +175,25 @@ const pollForButton = setInterval(() => {
       audioPlayer.pause();
       audioPlayer.currentTime = 0;
     }
-
-    function rewindAudio() {
-      audioPlayer.currentTime = Math.max(audioPlayer.currentTime - 5, 0);
-    }
-
-    function fastForwardAudio() {
-      audioPlayer.currentTime = Math.min(audioPlayer.currentTime + 5, audioPlayer.duration);
-    }
-
-    function setAudio(src) {
+  
+    // Update progress bar
+    audioPlayer.addEventListener('timeupdate', () => {
+      progressBar.max = Math.floor(audioPlayer.duration);
+      progressBar.value = Math.floor(audioPlayer.currentTime);
+    });
+    
+    // Seek on progress bar input
+    progressBar.addEventListener('input', () => {
+      audioPlayer.currentTime = progressBar.value;
+    });
+    
+    // Update track label
+    function setAudio(src, label = '') {
       audioPlayer.src = src;
       audioPlayer.play();
-
-      
+      currentTrackLabel.innerHTML = `${label}`;
     }
+    
   </script>
-
-  
-
 </body>
 </html>
