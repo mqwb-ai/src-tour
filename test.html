@@ -55,6 +55,7 @@
     .audio-links a:hover {
       color: var(--link-hover);
       text-decoration: none;
+      margin-top: 0;
     }
   
     .audio-controls {
@@ -75,15 +76,12 @@
       padding: 4px 8px;
       cursor: pointer;
     }
-  
+
     #progressBar {
       width: 160px;
+      margin-bottom: 24px;
     }
-  
-    footer {
-      position: relative;
-      height: 100px;
-    }
+
   
     elevenlabs-convai {
       position: fixed;
@@ -125,8 +123,6 @@
 
 
 
-  <!-- Footer with ElevenLabs Conversational AI Widget -->
-  <footer>
     <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
     
@@ -172,7 +168,7 @@
       clearInterval(pollForButton);
     }, pollInterval);
     </script>
-</footer>
+
   
  <!-- JavaScript for audio control-->
   <script>
