@@ -91,41 +91,48 @@
     }
   </style>
 </head>
-    
-  <!-- Header with audio player and tour links -->
+
+<body>
   <header>
     <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
-    <div id="currentTrackLabel">Introduction</div>
-    <div class="audio-controls">
+  </header>
+  
+  <div id="currentTrackLabel">Introduction</div>
+  
+  <div class="audio-controls">
       <audio id="audioPlayer" preload="auto">
-        <source src="welcome.mp3" type="audio/mpeg">
+      <source src="welcome.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
+  
       <div class="button-group">
         <button onclick="playAudio()">▶</button>
         <button onclick="pauseAudio()">⏸</button>
         <button onclick="stopAudio()">⏹</button>
       </div>
+    
       <input type="range" id="progressBar" value="0" min="0" step="1">
-    </div>
-    <div class="audio-links">
+    
+  </div>
+  
+  <div class="audio-links">
       <a href="#" onclick="setAudio('welcome.mp3', 'Introduction'); return false;">Introduction</a> |
       <a href="#" onclick="setAudio('oceanonek.mp3', 'Ocean One<sup>K</sup>'); return false;">Ocean One<sup>K</sup></a> |
       <a href="#" onclick="setAudio('dancestudio.mp3', 'Dance Studio'); return false;">Dance Studio</a> |
-        <a href="#" onclick="setAudio('domesticsuite.mp3', 'Domestic Suite'); return false;">Domestic Suite</a> |
-        <a href="#" onclick="setAudio('kitchen.mp3', 'Kitchen'); return false;">Kitchen</a> |
-        <a href="#" onclick="setAudio('medicalbay.mp3', 'Medical Bay'); return false;">Medical Bay</a> |
-        <a href="#" onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay'); return false;">Field and Construction Bay</a> |
-        <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a> |
-        <a href="#" onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device'); return false;">Interactive Haptic Device</a>
+      <a href="#" onclick="setAudio('domesticsuite.mp3', 'Domestic Suite'); return false;">Domestic Suite</a> |
+      <a href="#" onclick="setAudio('kitchen.mp3', 'Kitchen'); return false;">Kitchen</a> |
+      <a href="#" onclick="setAudio('medicalbay.mp3', 'Medical Bay'); return false;">Medical Bay</a> |
+      <a href="#" onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay'); return false;">Field and Construction Bay</a> |
+      <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a> |
+      <a href="#" onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device'); return false;">Interactive Haptic Device</a>
   </div>
-  </header>
 
-
-
+  <footer>
     <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-    
+  </footer>
+
+   <!-- Chatbot audio control-->
     <script>
     const pollInterval = 500; // ms
     const maxAttempts = 40; // Stop after ~20 seconds
@@ -170,7 +177,7 @@
     </script>
 
   
- <!-- JavaScript for audio control-->
+ <!-- User audio control-->
   <script>
     const audioPlayer = document.getElementById('audioPlayer');
     const progressBar = document.getElementById('progressBar');
