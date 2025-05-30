@@ -167,7 +167,8 @@
       button.addEventListener('click', () => {
         console.log('✅ Shadow button clicked!');
         const audioPlayer = document.getElementById('audioPlayer');
-        audioPlayer.pause();
+        //audioPlayer.pause();
+        pauseBackupAudio()
       });
     
       console.log('✅ Listener attached to shadow button.');
@@ -187,6 +188,11 @@
     }
 
     function pauseAudio() {
+      audioPlayer.pause();
+    }
+
+    function pauseBackupAudio() {
+      audioPlayer.currentTime = audioPlayer.currentTime - 1
       audioPlayer.pause();
     }
 
