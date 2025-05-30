@@ -5,83 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stanford Robotics Center Audio & AI Tour</title>
   <style>
-    body, html {
+    :root {
+      --link-color: #0066cc;
+      --link-hover: #004499;
+    }
+  
+    html, body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       height: 100%;
       box-sizing: border-box;
     }
-
+  
     header {
       background-color: #f4f4f4;
       padding: 20px;
       text-align: center;
     }
-
+  
     .logo {
       width: 80px;
       height: auto;
       margin-bottom: 20px;
     }
-
-    
-.audio-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-#progressBar {
-  width: 100px; 
-}
-
-#currentTrackLabel {
-  font-size: 12px;
-  color: #0066cc;
-  margin-bottom: 16px; /* add space below the label */
-}
-
-.audio-links a {
-  font-size: 13px;
-  text-decoration: underline;
-  color: #0066cc;
-  margin: 4px;
-}
-
-.audio-links a:hover {
-  color: #004499;
-  text-decoration: none;
-}
-
-    main {
-      padding: 30px;
+  
+    .audio-section {
       text-align: center;
-    }
-
-    main button {
-      margin: 10px;
       padding: 10px 20px;
+    }
+  
+    #currentTrackLabel {
       font-size: 12px;
+      color: var(--link-color);
+      margin-bottom: 16px;
+    }
+  
+    .audio-links {
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+  
+    .audio-links a {
+      text-decoration: underline;
+      color: var(--link-color);
+      margin: 0 5px;
+    }
+  
+    .audio-links a:hover {
+      color: var(--link-hover);
+      text-decoration: none;
+    }
+  
+    .audio-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+  
+    .button-group button {
+      font-size: 12px;
+      padding: 4px 8px;
       cursor: pointer;
     }
-
-
-
+  
+    #progressBar {
+      width: 160px;
+    }
+  
     footer {
       position: relative;
       height: 100px;
     }
-
+  
     elevenlabs-convai {
-      position: fixed ;
+      position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 1000;
@@ -122,54 +127,54 @@
 
   <!-- Footer with ElevenLabs Conversational AI Widget -->
   <footer>
-<elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
-<script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
-
-<script>
-const pollInterval = 500; // ms
-const maxAttempts = 40; // Stop after ~20 seconds
-let attempts = 0;
-
-const pollForButton = setInterval(() => {
-  const host = document.querySelector('elevenlabs-convai');
-
-  if (!host) {
-    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
-    attempts++;
-    if (attempts >= maxAttempts) clearInterval(pollForButton);
-    return;
-  }
-
-  const shadow = host.shadowRoot;
-  if (!shadow) {
-    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found`);
-    attempts++;
-    if (attempts >= maxAttempts) clearInterval(pollForButton);
-    return;
-  }
-
-  const button = shadow.querySelector('button[title="Ask me a question"]');
-  if (!button) {
-    console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
-    attempts++;
-    if (attempts >= maxAttempts) clearInterval(pollForButton);
-    return;
-  }
-
-  // ✅ Button found – attach listener
-  button.addEventListener('click', () => {
-    console.log('✅ Shadow button clicked!');
-    const audioPlayer = document.getElementById('audioPlayer');
-    audioPlayer.pause();
-  });
-
-  console.log('✅ Listener attached to shadow button.');
-  clearInterval(pollForButton);
-}, pollInterval);
-</script>
-
+    <elevenlabs-convai agent-id="agent_01jvn5j7m7emj9mva27qc019fy"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+    
+    <script>
+    const pollInterval = 500; // ms
+    const maxAttempts = 40; // Stop after ~20 seconds
+    let attempts = 0;
+    
+    const pollForButton = setInterval(() => {
+      const host = document.querySelector('elevenlabs-convai');
+    
+      if (!host) {
+        console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
+        attempts++;
+        if (attempts >= maxAttempts) clearInterval(pollForButton);
+        return;
+      }
+    
+      const shadow = host.shadowRoot;
+      if (!shadow) {
+        console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found`);
+        attempts++;
+        if (attempts >= maxAttempts) clearInterval(pollForButton);
+        return;
+      }
+    
+      const button = shadow.querySelector('button[title="Ask me a question"]');
+      if (!button) {
+        console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
+        attempts++;
+        if (attempts >= maxAttempts) clearInterval(pollForButton);
+        return;
+      }
+    
+      // ✅ Button found – attach listener
+      button.addEventListener('click', () => {
+        console.log('✅ Shadow button clicked!');
+        const audioPlayer = document.getElementById('audioPlayer');
+        audioPlayer.pause();
+      });
+    
+      console.log('✅ Listener attached to shadow button.');
+      clearInterval(pollForButton);
+    }, pollInterval);
+    </script>
 </footer>
- <!-- JavaScript -->
+  
+ <!-- JavaScript for audio control-->
   <script>
     const audioPlayer = document.getElementById('audioPlayer');
     const progressBar = document.getElementById('progressBar');
@@ -204,8 +209,8 @@ const pollForButton = setInterval(() => {
       audioPlayer.src = src;
       audioPlayer.play();
       currentTrackLabel.innerHTML = `${label}`;
-    }
-    
+    }    
   </script>
+  
 </body>
 </html>
