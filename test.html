@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stanford Robotics Center Audio & AI Tour</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?format=100w"/>
+  <title>Stanford Robotics Center Self-Guided Tour</title>
   <style>
     :root {
       --link-color: #0066cc;
@@ -13,21 +15,26 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Montserrat', Arial, sans-serif;
       height: 100%;
       box-sizing: border-box;
     }
+    
   
     header {
       background-color: #f4f4f4;
-      padding: 20px;
+      padding: 10px 0;
       text-align: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 16px;
+      color: #333;
+      border-bottom: 1px solid #ccc;
     }
-  
+    
     .logo {
-      width: 80px;
+      width: 50px;
       height: auto;
-      margin-bottom: 20px;
+      margin-bottom: 4px;
     }
   
     .audio-section {
@@ -82,6 +89,21 @@
       margin-bottom: 24px;
     }
 
+    .guestbook-link {
+      font-size: 11px;
+      font-style: italic;
+      color: #666666; /* Soft gray */
+      background: none;
+      border: none;
+      padding: 2px 4px;
+      text-decoration: none;
+    }
+    
+    .guestbook-link:hover {
+      color: #444444;
+      text-decoration: underline;
+    }
+
   
     elevenlabs-convai {
       position: fixed;
@@ -94,12 +116,15 @@
 
 <body>
   <header>
-    <img src="fullsrclogo.png" alt="SRC Logo" class="logo">  
+    <img src="fullsrclogo.png" alt="SRC Logo" class="logo">
+    <p></p>
+    Self-Guided Tour
+  </p>
   </header>
   
 
   <section class="audio-section">
-      <div id="currentTrackLabel">Introduction</div>
+<div id="currentTrackLabel">Introduction</div>
       <div class="audio-controls">
         <audio id="audioPlayer" preload="auto">
         <source src="welcome.mp3" type="audio/mpeg">
@@ -118,12 +143,15 @@
           <a href="#" onclick="setAudio('oceanonek.mp3', 'Ocean One<sup>K</sup>'); return false;">Ocean One<sup>K</sup></a> |
           <a href="#" onclick="setAudio('dancestudio.mp3', 'Dance Studio'); return false;">Dance Studio</a> |
           <a href="#" onclick="setAudio('domesticsuite.mp3', 'Domestic Suite'); return false;">Domestic Suite</a> |
-          <a href="#" onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device'); return false;">Interactive Haptic Device</a> |
+          <a href="#" onclick="setAudio('interactivehapticdevice.mp3', 'Interactive Haptic Device'); return false;">Interactive Haptic Device</a> | 
           <a href="#" onclick="setAudio('kitchen.mp3', 'Kitchen'); return false;">Kitchen</a> |
           <a href="#" onclick="setAudio('medicalbay.mp3', 'Medical Bay'); return false;">Medical Bay</a> |
           <a href="#" onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay'); return false;">Field and Construction Bay</a> |
-          <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a> 
-        </div>
+          <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a>
+      </div>
+    <a href="http://src.stanford.edu/" class="guestbook-link">
+  SRC Guestbook
+</a>
   </section>
 
   <footer>
