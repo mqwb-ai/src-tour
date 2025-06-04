@@ -19,21 +19,21 @@
     }
     
   
-header {
-  background-color: #f4f4f4;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  border-bottom: 1px solid #ccc;
-}
-
-.logo {
-  width: 50px;
-  height: auto;
-  margin-bottom: 4px;
-}
+    header {
+      background-color: #f4f4f4;
+      padding: 10px 0;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    .logo {
+      width: 50px;
+      height: auto;
+      margin-bottom: 4px;
+    }
   
     .audio-section {
       text-align: center;
@@ -87,6 +87,21 @@ header {
       margin-bottom: 24px;
     }
 
+    .guestbook-link {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--link-color);
+      background: none;
+      border: none;
+      padding: 4px;
+      text-decoration: none;
+    }
+
+    .guestbook-link:hover {
+      text-decoration: underline;
+      color: var(--link-hover);
+    }
+
   
     elevenlabs-convai {
       position: fixed;
@@ -132,7 +147,7 @@ header {
           <a href="#" onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay'); return false;">Field and Construction Bay</a> |
           <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a>
       </div>
-    <a href="http://src.stanford.edu/" style="font-size: 0.8em; font-style: italic; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: #f0f0f0; text-decoration: none;">
+    <a href="http://src.stanford.edu/" class="guestbook-link">
   Guestbook
 </a>
   </section>
