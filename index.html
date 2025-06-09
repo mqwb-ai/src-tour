@@ -157,49 +157,56 @@
   </footer>
 
    <!-- Chatbot audio control-->
-    <script>
-    const pollInterval = 500; // ms
-    const maxAttempts = 40; // Stop after ~20 seconds
-    let attempts = 0;
-    
-    const pollForButton = setInterval(() => {
-      const host = document.querySelector('elevenlabs-convai');
-    
-      if (!host) {
-        console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
-        attempts++;
-        if (attempts >= maxAttempts) clearInterval(pollForButton);
-        return;
-      }
-    
-      const shadow = host.shadowRoot;
-      if (!shadow) {
-        console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found`);
-        attempts++;
-        if (attempts >= maxAttempts) clearInterval(pollForButton);
-        return;
-      }
-    
-      const button = shadow.querySelector('button[title="Ask me a question"]');
-      if (!button) {
-        console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
-        attempts++;
-        if (attempts >= maxAttempts) clearInterval(pollForButton);
-        return;
-      }
-    
-      // ✅ Button found – attach listener
-      button.addEventListener('click', () => {
-        console.log('✅ Shadow button clicked!');
-        const audioPlayer = document.getElementById('audioPlayer');
-        //audioPlayer.pause();
-        pauseBackupAudio()
-      });
-    
-      console.log('✅ Listener attached to shadow button.');
-      clearInterval(pollForButton);
-    }, pollInterval);
-    </script>
+<script>
+const pollInterval = 500; // ms
+const maxAttempts = 120; // try for 1 minute
+let attempts = 0;
+
+const pollForButton = setInterval(() => {
+  console.log(`[DEBUG] Attempt ${attempts + 1}: Polling...`);
+
+  const host = document.querySelector('elevenlabs-convai');
+  if (!host) {
+    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
+    if (++attempts >= maxAttempts) clearInterval(pollForButton);
+    return;
+  }
+
+  const shadow = host.shadowRoot;
+  console.log(`[DEBUG] Shadow root:`, shadow); // << Log shadow root access
+
+  if (!shadow) {
+    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found (possibly closed)`);
+    if (++attempts >= maxAttempts) clearInterval(pollForButton);
+    return;
+  }
+
+  // Try several selectors in case structure changed
+  const button =
+    shadow.querySelector('button[title="Ask me a question"]') ||
+    shadow.querySelector('button._btn_1f9vw_132') ||
+    [...shadow.querySelectorAll('button')].find(btn =>
+      btn.textContent.includes('Ask me')
+    );
+
+  if (!button) {
+    console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
+    if (++attempts >= maxAttempts) clearInterval(pollForButton);
+    return;
+  }
+
+  console.log('✅ Button found, attaching listener...');
+
+  button.addEventListener('click', () => {
+    console.log('✅ Shadow button clicked!');
+    const audioPlayer = document.getElementById('audioPlayer');
+    pauseBackupAudio(); // or audioPlayer.pause();
+  });
+
+  console.log('✅ Listener successfully attached to button.');
+  clearInterval(pollForButton);
+}, pollInterval);
+</script>
 
   
  <!-- User audio control-->
