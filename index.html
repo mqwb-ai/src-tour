@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/x-icon" href="favicon.ico?format=100w"/>
-  <title>Stanford Robotics Center Self-Guided Tour</title>
+  <title>Stanford Robotics Center Self-Guided Audio Tour</title>
   <style>
     :root {
       --link-color: #0066cc;
@@ -19,7 +19,6 @@
       box-sizing: border-box;
     }
     
-  
     header {
       background-color: #f4f4f4;
       padding: 10px 0;
@@ -103,7 +102,6 @@
       text-decoration: underline;
     }
 
-  
     elevenlabs-convai {
       position: fixed;
       bottom: 20px;
@@ -117,22 +115,21 @@
   <header>
     <img src="fullsrclogo.png" alt="SRC Logo" class="logo">
     <p></p>
-    Self-Guided Tour
-  </p>
+    Self-Guided Audio Tour
   </header>
   
 
   <section class="audio-section">
-<div id="currentTrackLabel">Introduction</div>
+      <div id="currentTrackLabel">Introduction</div>
       <div class="audio-controls">
         <audio id="audioPlayer" preload="auto">
         <source src="welcome.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
         </audio>
         <div class="button-group">
-          <button onclick="playAudio()">▶</button>
-          <button onclick="pauseAudio()">⏸</button>
-          <button onclick="stopAudio()">⏹</button>
+            <button onclick="playAudio()">▶</button>
+            <button onclick="pauseAudio()">⏸</button>
+            <button onclick="stopAudio()">⏹</button>
         </div>
       <input type="range" id="progressBar" value="0" min="0" step="1">
       </div>
@@ -148,7 +145,6 @@
           <a href="#" onclick="setAudio('fieldrobotics.mp3', 'Field and Construction Bay'); return false;">Field and Construction Bay</a> |
           <a href="#" onclick="setAudio('logisticsmanufacturing.mp3', 'Logistics and Manufacturing Bay'); return false;">Logistics and Manufacturing Bay</a>
       </div>
-
   </section>
 
   <footer>
@@ -156,60 +152,60 @@
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
   </footer>
 
-   <!-- Chatbot audio control-->
-<script>
-const pollInterval = 500; // ms
-const maxAttempts = 120; // try for 1 minute
-let attempts = 0;
-
-const pollForButton = setInterval(() => {
-  console.log(`[DEBUG] Attempt ${attempts + 1}: Polling...`);
-
-  const host = document.querySelector('elevenlabs-convai');
-  if (!host) {
-    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
-    if (++attempts >= maxAttempts) clearInterval(pollForButton);
-    return;
-  }
-
-  const shadow = host.shadowRoot;
-  console.log(`[DEBUG] Shadow root:`, shadow); // << Log shadow root access
-
-  if (!shadow) {
-    console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found (possibly closed)`);
-    if (++attempts >= maxAttempts) clearInterval(pollForButton);
-    return;
-  }
-
-  // Try several selectors in case structure changed
-  const button =
-    shadow.querySelector('button[title="Ask me a question"]') ||
-    shadow.querySelector('button._btn_1f9vw_132') ||
-    [...shadow.querySelectorAll('button')].find(btn =>
-      btn.textContent.includes('Ask me')
-    );
-
-  if (!button) {
-    console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
-    if (++attempts >= maxAttempts) clearInterval(pollForButton);
-    return;
-  }
-
-  console.log('✅ Button found, attaching listener...');
-
-  button.addEventListener('click', () => {
-    console.log('✅ Shadow button clicked!');
-    const audioPlayer = document.getElementById('audioPlayer');
-    pauseBackupAudio(); // or audioPlayer.pause();
-  });
-
-  console.log('✅ Listener successfully attached to button.');
-  clearInterval(pollForButton);
-}, pollInterval);
-</script>
+  <!-- Chatbot audio control-->
+  <script>
+    const pollInterval = 500; // ms
+    const maxAttempts = 120; // try for 1 minute
+    let attempts = 0;
+    
+    const pollForButton = setInterval(() => {
+      console.log(`[DEBUG] Attempt ${attempts + 1}: Polling...`);
+    
+      const host = document.querySelector('elevenlabs-convai');
+      if (!host) {
+        console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow host not found`);
+        if (++attempts >= maxAttempts) clearInterval(pollForButton);
+        return;
+      }
+    
+      const shadow = host.shadowRoot;
+      console.log(`[DEBUG] Shadow root:`, shadow); // << Log shadow root access
+    
+      if (!shadow) {
+        console.log(`[DEBUG] Attempt ${attempts + 1}: Shadow root not found (possibly closed)`);
+        if (++attempts >= maxAttempts) clearInterval(pollForButton);
+        return;
+      }
+    
+      // Try several selectors in case structure changed
+      const button =
+        shadow.querySelector('button[title="Ask me a question"]') ||
+        shadow.querySelector('button._btn_1f9vw_132') ||
+        [...shadow.querySelectorAll('button')].find(btn =>
+          btn.textContent.includes('Ask me')
+        );
+    
+      if (!button) {
+        console.log(`[DEBUG] Attempt ${attempts + 1}: Button not found`);
+        if (++attempts >= maxAttempts) clearInterval(pollForButton);
+        return;
+      }
+    
+      console.log('✅ Button found, attaching listener...');
+    
+      button.addEventListener('click', () => {
+        console.log('✅ Shadow button clicked!');
+        const audioPlayer = document.getElementById('audioPlayer');
+        pauseBackupAudio(); // or audioPlayer.pause();
+      });
+    
+      console.log('✅ Listener successfully attached to button.');
+      clearInterval(pollForButton);
+    }, pollInterval);
+  </script>
 
   
- <!-- User audio control-->
+  <!-- User audio control-->
   <script>
     const audioPlayer = document.getElementById('audioPlayer');
     const progressBar = document.getElementById('progressBar');
